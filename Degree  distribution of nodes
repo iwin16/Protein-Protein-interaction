@@ -1,0 +1,26 @@
+from PIL import Image
+import os
+
+array = np.zeros((len(adj_matrix), len(adj_matrix)))
+
+# Set grey value to black or white depending on x position
+for x in range(len(adj_matrix)):
+    for y in range(len(adj_matrix)):
+        if adj_matrix[x,y] == 0:
+            array[y, x] = 0
+        else:
+            array[y, x] = 255
+
+img = Image.fromarray(array)
+if img.mode != 'RGB':
+    img = img.convert('RGB')
+img.save('graph.png')
+
+
+degree = []
+
+for node in nodes:
+    
+    degree.append(len(adj_list[node]))
+    
+plt.hist(degree, bins = 10)
