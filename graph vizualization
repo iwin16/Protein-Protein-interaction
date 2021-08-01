@@ -1,0 +1,23 @@
+deg = np.array(degree)
+np.where(deg == np.max(deg))
+
+graph = nx.Graph()
+
+for node in nodes:
+    graph.add_node(node, size =1)
+    
+    
+
+
+for i in range(len(adj_matrix)):
+    for j in range(len(adj_matrix[i])):
+        if adj_matrix[i,j] == 1:
+            graph.add_edge(nodes[i], nodes[j])
+            
+pos_ = nx.spring_layout(graph, iterations=5, k = 1.5)
+
+plt.figure(dpi = 200)
+nx.draw_networkx(graph, pos_, node_size = 20,font_size =3.5,width = 0.2 )
+plt.tight_layout()
+#plt.show()
+plt.savefig("Graph.png", format="PNG")
