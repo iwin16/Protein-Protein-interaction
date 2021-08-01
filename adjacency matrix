@@ -1,0 +1,58 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import networkx as nx
+
+f = open('string_interactions.tsv', 'r')
+
+node1 = []
+node2 = []
+
+for line in f:
+    
+    line = line.split()
+    
+
+    node1.append(line[0])
+    node2.append(line[1])
+    
+node2.remove('node2')
+node1.remove('#node1')
+
+n1uq = set(node1)
+n2uq = set(node2)
+n1uq = list(n1uq)
+n2uq = list(n2uq)
+n1uq.extend(n2uq)
+nodes = list(set(n1uq))
+
+dict_ = {}
+
+for n in nodes:
+    dict_[n] = []
+    
+
+for node in nodes:
+    for i in range(len(node1)):
+        if  node == node1[i]:
+            if node2[i] not in dict_[node]:
+                dict_[node].append(node2[i])
+                
+for node in nodes:                
+    for j in range(len(node2)):
+        if node == node2[j]:
+            if node1[j] not in dict_[node]:
+                dict_[node].append(node1[j])
+                
+adj_matrix =  np.zeros((len(dict_), len(dict_)))
+
+
+for i in range(len(nodes)):
+    
+    for j in range(len(nodes)):
+        if nodes[j]  in adj_list[nodes[i]]:
+            
+            adj_matrix[i][j] = 1
+            
+plt.imshow(adj_matrix)
+
+adj_list = dict_
